@@ -31,7 +31,6 @@ function elegirMenu() {
   }
 
   for (let index = 0; index < pasosDelMenu; index++) {
-    console.log(index)
     switch (index) {
       case 0:
         if(platoPrincipal === 1){
