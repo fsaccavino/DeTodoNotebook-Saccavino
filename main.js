@@ -1,66 +1,65 @@
-let edad = 0;
+const productos = [
+  {
+    id: 1,
+    nombre: "NOTEBOOK GAMER - ACER AN515-57-52NY INTEL CORE I5",
+    precio: 500000,
+  },
+  {
+    id: 2,
+    nombre: "NOTEBOOK OFICINA - ACER A315-58-56J6 INTEL CORE I5",
+    precio: 300000,
+  },
+  {
+    id: 3,
+    nombre: "NOTEBOOK HOGAR - ACER A315-34-C52Q DUAL-CORE",
+    precio: 150000,
+  },
+];
 
-function solicitarEdad() {
-  edad = prompt(
-    "Debes ser mayor de edad para ingresar al sitio. Ingrese su edad"
+function ingresarNombre() {
+  let nombreIngresado = prompt("Ingrese su nombre");
+  alert("Bienvenido " + nombreIngresado + " a De Todo Notebook");
+}
+ingresarNombre();
+
+function elegirNotebook() {
+  let notebookIngresada = "";
+
+  while (
+    notebookIngresada.toUpperCase() !== "GAMER" &&
+    notebookIngresada.toUpperCase() !== "OFICINA" &&
+    notebookIngresada.toUpperCase() !== "HOGAR"
+  ) {
+    notebookIngresada = prompt(
+      "Ingrese el nombre de la notebook que desea adquirir (GAMER, OFICINA o HOGAR):"
+    );
+  }
+  return productos.filter((producto) =>
+    producto.nombre.includes(notebookIngresada.toUpperCase())
   );
-  if (edad >= 18) {
-    alert("Bienvenido al sitio");
-    elegirMenu();
-  } else {
-    alert("Eres menor de edad. No puedes ingresar");
-  }
-}
-solicitarEdad();
-
-function elegirMenu() {
-  let pasosDelMenu = 3;
-  let platoPrincipal = 0;
-  let bebida = 0;
-  let postre = 0;
-  let valorTotal = 0;
-
-  while(platoPrincipal !== 1 && platoPrincipal !== 2){
-    platoPrincipal = Number(prompt("Elige su plato principal: 1 = Milanesa $ 500 - 2 = Hamburguesa $ 300"));
-  }
-  while(bebida !== 1 && bebida !== 2){
-    bebida = Number(prompt("Elige su bebida: 1 = Coca Cola $ 200 - 2 = Sprite $ 150"));
-  }
-  while(postre !== 1 && postre !== 2){
-    postre = Number(prompt("Elige su postre: 1 = Helado $ 100 - 2 = Flan $ 100"));
-  }
-
-  for (let index = 0; index < pasosDelMenu; index++) {
-    switch (index) {
-      case 0:
-        if(platoPrincipal === 1){
-          alert("Su plato principal es: Milanesa");
-          valorTotal = valorTotal + 500;
-          }else{
-            alert("Su plato principal es: Hamburguesa");
-            valorTotal = valorTotal + 300;
-          }
-        break;
-      case 1:
-        if(bebida === 1){
-          alert("Su bebida es: Coca Cola");
-          valorTotal = valorTotal + 200;
-          }else{
-            alert("Su bebida es: Sprite");
-            valorTotal = valorTotal + 150;
-          }
-        break;
-      case 2:
-        if(postre === 1){
-          alert("Su postre es: Helado");
-          valorTotal = valorTotal + 100;
-          }else{
-            alert("Su postre es: Flan");
-            valorTotal = valorTotal + 100;
-          }
-        break;
-    }
-  }
-  alert("El costo total de su menú es: $" + valorTotal)
 }
 
+let notebookElegida = elegirNotebook();
+
+function elegirMetodoPago() {
+  let metodoPago;
+
+  while (Number(metodoPago) !== 1 && Number(metodoPago) !== 2) {
+    metodoPago = prompt(
+      "Como desea abonar: 1 - Efectivo (20% de descuento) 2 - Tarjeta (10% de recargo"
+    );
+  }
+  if (Number(metodoPago) === 1) {
+    alert(
+      "El precio total en efectivo es: $ " +
+        (Number(notebookElegida[0].precio) -
+          Number(notebookElegida[0].precio) * 0.2)
+    );
+  } else if (Number(metodoPago) === 2) {
+    alert(
+      "El precio total financiado es: $ " +
+        Number(notebookElegida[0].precio) * 1.1
+    );
+  }
+}
+elegirMetodoPago();
