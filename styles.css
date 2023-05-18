@@ -35,6 +35,10 @@ header{
   background-color: black;
   margin-bottom: 20px;
 }
+.title{
+  text-align: center;
+  padding-bottom: 20px;
+}
 .icon-back{
   background-color: black;
   padding: 5px;
