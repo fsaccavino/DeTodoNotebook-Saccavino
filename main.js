@@ -1,65 +1,125 @@
-const productos = [
+const products = [
   {
-    id: 1,
-    nombre: "NOTEBOOK GAMER - ACER AN515-57-52NY INTEL CORE I5",
+    id: "1",
+    nombre: "NOTEBOOK GAMER ACER AN515-57-52NY INTEL CORE I5",
+    imagen: "./img/ACER AN515-57-52NY.jpg",
     precio: 500000,
+    marca: "Acer",
   },
   {
-    id: 2,
-    nombre: "NOTEBOOK OFICINA - ACER A315-58-56J6 INTEL CORE I5",
+    id: "2",
+    nombre: "NOTEBOOK OFICINA ACER A315-58-56J6 INTEL CORE I5",
+    imagen: "./img/ACER A315-58-56J6.jpg",
     precio: 300000,
+    marca: "Acer",
   },
   {
-    id: 3,
-    nombre: "NOTEBOOK HOGAR - ACER A315-34-C52Q DUAL-CORE",
+    id: "3",
+    nombre: "NOTEBOOK HOGAR A315-34-C52Q DUAL-CORE",
+    imagen: "./img/ACER A315-34-C52Q.jpg",
     precio: 150000,
+    marca: "Acer",
+  },
+  {
+    id: "4",
+    nombre: "NOTEBOOK GAMER ASUS ZENBOOK 14X OLED UX5401EA-L7101T INTEL",
+    imagen: "./img/UX5401EA.jpg",
+    precio: 800000,
+    marca: "Asus",
+  },
+  {
+    id: "5",
+    nombre: "NOTEBOOK OFICINA ASUS VIVOBOOK PRO 15 OLED M3500QA-L1180W",
+    imagen: "./img/VIVOBOOK PRO 15 OLED.jpg",
+    precio: 690000,
+    marca: "Asus",
+  },
+  {
+    id: "6",
+    nombre: "NOTEBOOK HOGAR ASUS X515EA-EJ1626W NTEL CORE I3",
+    imagen: "./img/X515EA-EJ1626W.jpg",
+    precio: 240000,
+    marca: "Asus",
+  },
+  {
+    id: "7",
+    nombre: "NOTEBOOK GAMER LENOVO 82H802JKAR INTEL CORE I7",
+    imagen: "./img/LENOVO 82H802JKAR.jpg",
+    precio: 550000,
+    marca: "Lenovo",
+  },
+  {
+    id: "8",
+    nombre: "NOTEBOOK OFICINA LENOVO 82KU01VDAR AMD R5",
+    imagen: "./img/LENOVO 82KU01VDAR.jpg",
+    precio: 290000,
+    marca: "Lenovo",
+  },
+  {
+    id: "9",
+    nombre: "NOTEBOOK HOGAR LENOVO 81WQ00MLAR INTEL CELERON",
+    imagen: "./img/LENOVO 81WQ00MLAR.jpg",
+    precio: 180000,
+    marca: "Lenovo",
   },
 ];
 
-function ingresarNombre() {
-  let nombreIngresado = prompt("Ingrese su nombre");
-  alert("Bienvenido " + nombreIngresado + " a De Todo Notebook");
+const containerItems = document.querySelector("#container-items");
+let buttonAdd = document.querySelectorAll(".add-product");
+const number = document.querySelector(".number");
+
+function uploadProducts(products) {
+  products.forEach(({ imagen, nombre, id, precio }) => {
+    const div = document.createElement("div");
+    div.classList.add("item");
+    div.innerHTML = `
+    <figure>
+      <img src="${imagen}" alt="${nombre}" />
+    </figure>
+    <div class="info-product">
+      <h2>${nombre}</h2>
+      <p class="price">$ ${precio}</p>
+      <button class="add-product" id="${id}">Añadir al carrito</button>
+    </div>
+    `;
+
+    containerItems.append(div);
+  });
+
+  buttonAdd = document.querySelectorAll(".add-product");
+  buttonAdd.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const existe = shop.some((product) => product.id === e.currentTarget.id);
+      if (existe) {
+        shop = shop.map((product) => {
+          if (product.id === e.currentTarget.id) {
+            product.cantidad++;
+          }
+        return product;
+        });
+      } else {
+        const productAdd = products.find((product) => product.id === e.currentTarget.id);
+        productAdd.cantidad = 1;
+        shop.push(productAdd);
+        
+      }
+      refreshNumber();
+      localStorage.setItem("shop", JSON.stringify(shop));
+    });
+  });
 }
-ingresarNombre();
+uploadProducts(products);
 
-function elegirNotebook() {
-  let notebookIngresada = "";
+let shop;
+let shopLS = localStorage.getItem("shop");
 
-  while (
-    notebookIngresada.toUpperCase() !== "GAMER" &&
-    notebookIngresada.toUpperCase() !== "OFICINA" &&
-    notebookIngresada.toUpperCase() !== "HOGAR"
-  ) {
-    notebookIngresada = prompt(
-      "Ingrese el nombre de la notebook que desea adquirir (GAMER, OFICINA o HOGAR):"
-    );
-  }
-  return productos.filter((producto) =>
-    producto.nombre.includes(notebookIngresada.toUpperCase())
-  );
+if (shopLS) {
+  shop = JSON.parse(shopLS);
+  refreshNumber();
+} else {
+  shop = [];
 }
 
-let notebookElegida = elegirNotebook();
-
-function elegirMetodoPago() {
-  let metodoPago;
-
-  while (Number(metodoPago) !== 1 && Number(metodoPago) !== 2) {
-    metodoPago = prompt(
-      "Como desea abonar: 1 - Efectivo (20% de descuento) 2 - Tarjeta (10% de recargo"
-    );
-  }
-  if (Number(metodoPago) === 1) {
-    alert(
-      "El precio total en efectivo es: $ " +
-        (Number(notebookElegida[0].precio) -
-          Number(notebookElegida[0].precio) * 0.2)
-    );
-  } else if (Number(metodoPago) === 2) {
-    alert(
-      "El precio total financiado es: $ " +
-        Number(notebookElegida[0].precio) * 1.1
-    );
-  }
+function refreshNumber() {
+  number.innerText = shop.length;
 }
-elegirMetodoPago();

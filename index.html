@@ -5,124 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>De Todo Notebook</title>
-    <link rel="stylesheet" href="bootstrap.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
-    <!-- NavBar -->
-    <nav class="navbar bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img
-            src="./img/logo.png"
-            alt="Logo"
-            width="60"
-            height="60"
-            class="d-inline-block"
-          />
-          De Todo Notebook
-        </a>
-        <form class="d-flex" role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Búsqueda"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-dark btn-navbar" type="submit">
-            Buscar
-          </button>
-        </form>
+    <!-- NavBar -->  
+    
+    <header>
+      <a style="color: white;" href="index.html"
+        ><img
+          src="./img/logo.png"
+          alt="Logo"
+          width="60"
+          height="60"
+          class="d-inline-block"
+        />De Todo Notebook</a
+      >
+      <div class="container-icon cart-button">
+        <a style="color: white;" class="icon-carrito" href="./carrito.html"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="icon-cart"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+            />
+          </svg>
+          <span class="number">0</span></a
+        >
       </div>
-    </nav>
+    </header>
 
     <!-- Cards -->
 
-    <div class="container">
-      <h2>Nuestros Productos</h2>
-    </div>
-
-    <div class="container-cards">
-      <div class="card text-center border-dark mb-3" style="max-width: 20rem">
-        <div class="card-header">
-          NOTEBOOK GAMER - ACER AN515-57-52NY INTEL CORE I5
-        </div>
-        <img
-          src="./img/ACER AN515-57-52NY.jpg"
-          class="card-img-top"
-          alt="..."
-        />
-        <div class="card-body">
-          <p class="card-text card-price" style="font-weight: bold">$ 500.000,00</p>
-          <button type="button" class="btn btn-success">
-            Agregar al carrito
-          </button>
-        </div>
-      </div>
-
-      <div class="card text-center border-dark mb-3" style="max-width: 20rem">
-        <div class="card-header">NOTEBOOK OFICINA - ACER A315-58-56J6 INTEL CORE I5</div>
-        <img src="./img/ACER A315-58-56J6.jpg" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <p class="card-text card-price" style="font-weight: bold">$ 340.000,00</p>
-          <button type="button" class="btn btn-success">
-            Agregar al carrito
-          </button>
-        </div>
-      </div>
-
-      <div class="card text-center border-dark mb-3" style="max-width: 20rem">
-        <div class="card-header">NOTEBOOK HOGAR - ACER A315-34-C52Q DUAL-CORE</div>
-        <img src="./img/ACER A315-34-C52Q.jpg" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <p class="card-text card-price" style="font-weight: bold">$ 170.000,00</p>
-          <button type="button" class="btn btn-success">
-            Agregar al carrito
-          </button>
-        </div>
-      </div>
+    <div id="container-items" class="container-items">
 
     </div>
-    <hr />
 
-    <!-- Cart -->
-
-    <div class="container">
-      <h2>Tu Carrito</h2>
-      <em>Tus productos seleccionados...</em>.
-
-      <div class="container-cart">
-        <h4 class="card-title">Producto C</h4>
-        <p class="card-text">Precio:</p>
-        <button type="button" class="btn btn-outline-primary">Eliminar</button>
-      </div>
-    </div>
-
-    <hr />
-
-    <!-- Form -->
-
-    <form class="container">
-      <h3>Finalizar la compra</h3>
-      <label>Nombre y Apellido</label>
-      <input
-        type="text"
-        class="form-control"
-        id="inputName"
-        placeholder="Ingrese su Nombre y Apellido"
-      />
-      <label>Correo Electrónico</label>
-      <input
-        type="email"
-        class="form-control"
-        id="inputEmail"
-        placeholder="Ingrese su E-mail"
-      />
-      <div class="container-form">
-        <button type="submit" class="btn btn-success">
-          Comprar y Enviar Información
-        </button>
-      </div>
-    </form>
+    <footer>
+      <p>© 2023 De Todo Notebook</p>
+    </footer>
 
     <script src="main.js"></script>
   </body>
