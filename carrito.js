@@ -4,18 +4,17 @@ shop = JSON.parse(shop);
 const shopEmptyP = document.querySelector(".shop-empty-p");
 const itemsShop = document.querySelector(".items-shop");
 const shopActions = document.querySelector(".shop-actions");
-const shopBuyP = document.querySelector(".shop-buy-p");
 let buttonRemove = document.querySelectorAll(".remove-item-shop");
 const buttonShopEmpty = document.querySelector(".shop-empty");
 const buttonTotal = document.querySelector("#total");
 const buttonBuy = document.querySelector(".shop-buy");
+const cardPay = document.querySelector(".card-pay");
 
 function updateShop() {
   if (shop && shop.length > 0) {
     shopEmptyP.classList.add("none");
     itemsShop.classList.remove("none");
     shopActions.classList.remove("none");
-    shopBuyP.classList.add("none");
 
     itemsShop.innerHTML = "";
 
@@ -49,7 +48,6 @@ function updateShop() {
     shopEmptyP.classList.remove("none");
     itemsShop.classList.add("none");
     shopActions.classList.add("none");
-    shopBuyP.classList.add("none");
   }
   updateButtonRemove();
   updateTotal();
@@ -64,6 +62,18 @@ function updateButtonRemove() {
 }
 
 function removeShop(e) {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1200,
+    timerProgressBar: true,
+  });
+
+  Toast.fire({
+    icon: "error",
+    title: "Producto eliminado",
+  });
   const index = shop.findIndex((product) => product.id === e.currentTarget.id);
 
   shop.splice(index, 1);
@@ -72,11 +82,29 @@ function removeShop(e) {
   localStorage.setItem("shop", JSON.stringify(shop));
 }
 
-buttonShopEmpty.addEventListener("click", () => {
-  shop.length = 0;
-  localStorage.setItem("shop", JSON.stringify(shop));
-  updateShop();
-});
+buttonShopEmpty.addEventListener("click", shopEmpty);
+
+function shopEmpty() {
+  Swal.fire({
+    title: "¿Estás seguro que deseas vaciar el carrito?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Vaciar",
+    cancelButtonText: "Cancelar",
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Carrito vacío!", "No hay productos en el carrito.", "success");
+      shop.length = 0;
+      localStorage.setItem("shop", JSON.stringify(shop));
+      updateShop();
+    } else {
+      Swal.fire("Cancelado", "Los productos siguen en el carrito", "error");
+      localStorage.setItem("shop", JSON.stringify(shop));
+      updateShop();
+    }
+  });
+}
 
 function updateTotal() {
   let totalCalculado = 0;
@@ -86,11 +114,18 @@ function updateTotal() {
   total.innerText = `$ ${totalCalculado}`;
 }
 
-buttonBuy.addEventListener("click", () => {
-  shop.length = 0;
-  localStorage.setItem("shop", JSON.stringify(shop));
-  shopEmptyP.classList.add("none");
+buttonBuy.addEventListener("click", shopBuy);
+
+function shopBuy() {
+  Swal.fire({
+    icon: "success",
+    title: "¡Muchas gracias por su compra!",
+    confirmButtonText: "Aceptar",
+  });
   itemsShop.classList.add("none");
   shopActions.classList.add("none");
-  shopBuyP.classList.remove("none");
-});
+  setTimeout(function () {
+    localStorage.clear();
+    shopEmptyP.classList.remove("none");
+  }, 1300);
+}

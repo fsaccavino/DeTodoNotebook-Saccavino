@@ -85,30 +85,45 @@ function uploadProducts(products) {
 
     containerItems.append(div);
   });
-
-  buttonAdd = document.querySelectorAll(".add-product");
-  buttonAdd.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const existe = shop.some((product) => product.id === e.currentTarget.id);
-      if (existe) {
-        shop = shop.map((product) => {
-          if (product.id === e.currentTarget.id) {
-            product.cantidad++;
-          }
-        return product;
-        });
-      } else {
-        const productAdd = products.find((product) => product.id === e.currentTarget.id);
-        productAdd.cantidad = 1;
-        shop.push(productAdd);
-        
-      }
-      refreshNumber();
-      localStorage.setItem("shop", JSON.stringify(shop));
-    });
-  });
 }
 uploadProducts(products);
+
+buttonAdd = document.querySelectorAll(".add-product");
+buttonAdd.forEach((button) => button.addEventListener("click", addToShopp));
+
+function addToShopp(e) {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1200,
+    timerProgressBar: true,
+  });
+
+  Toast.fire({
+    icon: "success",
+    title: "Producto agregado",
+  });
+  const existe = shop.some((product) => product.id === e.currentTarget.id);
+
+  if (existe) {
+    shop = shop.map((product) => {
+      if (product.id === e.currentTarget.id) {
+        product.cantidad++;
+      }
+      return product;
+    });
+  } else {
+    const productAdd = products.find(
+      (product) => product.id === e.currentTarget.id
+    );
+    productAdd.cantidad = 1;
+    shop.push(productAdd);
+  }
+
+  refreshNumber();
+  localStorage.setItem("shop", JSON.stringify(shop));
+}
 
 let shop;
 let shopLS = localStorage.getItem("shop");
