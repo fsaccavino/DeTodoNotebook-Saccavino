@@ -8,7 +8,6 @@ fetch("./productos.json")
     generateButtonSelectors();
   });
 
-
 const containerItems = document.querySelector("#container-items");
 let buttonAdd = document.querySelectorAll(".add-product");
 const number = document.querySelector(".number");
@@ -30,7 +29,6 @@ function uploadProducts(products) {
 
     containerItems.append(div);
   });
-  
 }
 
 function generateButtonSelectors() {
@@ -38,9 +36,7 @@ function generateButtonSelectors() {
   buttonAdd.forEach((button) => button.addEventListener("click", addToShopp));
 }
 
-
 function addToShopp(e) {
-  
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
